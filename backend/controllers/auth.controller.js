@@ -7,11 +7,11 @@ const generateTokens = (userid) =>{
     const refreshToken = jwt.sign({userid}, process.env.REFRESH_TOKEN_SECRET, {expiresIn : "7d"});
 
     return {accessToken, refreshToken};
-}
+};
 
 const storeRefreshToken = async (userid, refreshToken) => {
     await redis.set(`refreshToken:${userid}`, refreshToken, "EX", 7 * 24 * 60 * 60);
-}
+};
 
 const setCookies = (res, accessToken, refreshToken) => {
     res.cookie("accessToken", accessToken, {
@@ -133,12 +133,12 @@ export const refreshToken = async (req, res)=> {
         console.log("Error in refresh token controller", error.message);
         res.status(500).json({message : "Server Error", error : error.message});
     }
-}
+};
 
-// export const getProfile = async (req, res)=> {
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-// }
+export const getProfile = async (req, res)=> {
+    try {
+        res.json(req.user);
+    } catch (error) {
+        res.status(500).json({ message : "Server Error", error : error.message });
+    }
+};
