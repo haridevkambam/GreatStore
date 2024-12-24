@@ -6,10 +6,12 @@ import axiosInstance from "../lib/axios";
 import LoadingSpinner from "../components/LoadingSpinner";
 import { useCartStore } from "../stores/useCartStore";
 import toast from "react-hot-toast";
+import { useUserStore } from "../stores/useUserStore";
 const PurchaseSuccessPage = () => {
 
     const [isProcessing, setIsProcessing] = useState(true);
     const { clearCart } = useCartStore();
+	const { clearAllFromCart } = useUserStore();
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -19,6 +21,7 @@ const PurchaseSuccessPage = () => {
                     sessionId
                 })
                 clearCart();
+				clearAllFromCart();
             } catch (error) {
                 console.log(error);
             }

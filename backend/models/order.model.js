@@ -33,7 +33,7 @@ const orderSchema = new mongoose.Schema(
         },
         stripeSessionId: {
             type: String,
-            unique: true,
+            unique: [true, "Session ID must be unique"],
         },
     },
     {

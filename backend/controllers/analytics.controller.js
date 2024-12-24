@@ -33,7 +33,7 @@ export const getDailySalesData = async (startDate, endDate) => {
                 $match: {
                     createdAt: {
                         $gte: startDate,
-                        $lte: endDate
+                        $lte: endDate,
                     },
                 },
             },
@@ -43,7 +43,7 @@ export const getDailySalesData = async (startDate, endDate) => {
                         $dateToString: { format: "%Y-%m-%d", date: "$createdAt" }
                     },
                     sales: { $sum: 1 },
-                    revenue: { $sum: "$totalAmount" }
+                    revenue: { $sum: "$totalAmount" },
                 },
             },
             {
@@ -74,7 +74,7 @@ function getDatesInRange(startDate, endDate) {
     let currentDate = new Date(startDate);
 
     while(currentDate <= endDate) {
-        dates.push(new Date(currentDate.toISOString().split("T")[0]));
+        dates.push(currentDate.toISOString().split("T")[0]);
         currentDate.setDate(currentDate.getDate() + 1);
     }
     return dates;
