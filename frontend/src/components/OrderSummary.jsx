@@ -13,13 +13,17 @@ const OrderSummary = () => {
     const savings = subtotal - total;
     const formattedSubtotal = subtotal.toFixed(2);
     const formattedTotal = total.toFixed(2);
-    const formattedSavings = total.toFixed(2);
+    const formattedSavings = savings.toFixed(2);
+
+    console.log(typeof subtotal, subtotal); // Check the type and value of subtotal
+    console.log(typeof total, total); // Check the type and value of total
+
 
     const handlePayment = async () => {
         const stripe = await stripePromise;
         const res = await axios.post("/payments/create-checkout-session", {
             products: cart,
-            coupon: coupon ? coupon.code : null
+            couponCode: coupon ? coupon.code : null
         });
 
         const session = res.data;
@@ -29,7 +33,7 @@ const OrderSummary = () => {
             sessionId: session.sessionId
         });
 
-        if(result.error){
+        if (result.error) {
             console.error("Error in stripe session create: ", result.error);
         }
     };
