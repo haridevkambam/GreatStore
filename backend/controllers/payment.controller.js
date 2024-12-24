@@ -48,7 +48,8 @@ export const createCheckoutSession = async (req, res) => {
                         images: [product.image],   
                     },
                     unit_amount: amount,
-                }
+                },
+                quantity: product.quantity || 1,
             }
         });
 
@@ -75,7 +76,7 @@ export const createCheckoutSession = async (req, res) => {
                 },
             ] : [],
             metadata: {
-                userId: user._id.toString(),
+                userId: req.user._id.toString(),
                 couponCode: couponCode || "",
                 products: JSON.stringify(
                     products.map((p) => ({

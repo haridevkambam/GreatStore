@@ -5,6 +5,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import CartPage from './pages/CartPage.jsx';
 import CategoryPage from './pages/CategoryPage.jsx';
 import AdminPage from './pages/AdminPage.jsx';
+import PurchaseSuccessPage from './pages/PurchaseSuccessPage.jsx';
+import PurchaseCancelPage from './pages/PurchaseCancelPage.jsx';
 import Navbar from './components/Navbar.jsx';
 import { Toaster } from 'react-hot-toast';
 import { useUserStore } from './stores/useUserStore.js';
@@ -47,6 +49,8 @@ function App() {
           <Route path='/secret-dashboard' element={user?.role === "admin" ? <AdminPage /> : <Navigate to="/login" />} />
           <Route path='/category/:category' element={<CategoryPage />} />
           <Route path='/cart' element={user ? <CartPage /> : <Navigate to={"/login"} />} />
+          <Route path='/purchase-success' element={user ? <PurchaseSuccessPage /> : <Navigate to={"/login"} />} />
+          <Route path='/purchase-cancel' element={user ? <PurchaseCancelPage /> : <Navigate to={"/login"} />} />
         </Routes>
       </div>
       <Toaster />
