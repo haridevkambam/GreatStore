@@ -69,7 +69,7 @@ export const useUserStore = create((set, get) => ({
     },
 
     refreshToken: async () => {
-        if(get().checkAuth) return;
+        if(get().checkingAuth) return;
 
         set({ checkingAuth: true });
         try {
